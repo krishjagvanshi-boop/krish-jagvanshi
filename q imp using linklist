@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int data;
+    struct node *next;
+};
+struct node *F = NULL;
+struct node *R = NULL;
+int dequeue() {
+    int x = -1;
+    struct node *p;
+    
+    if (F == NULL) {
+        printf("Queue is empty\n");
+    } else {
+        p = F;
+        F = F->next;
+        x = p->data;
+        free(p);
+        p = NULL;
+    }
+    return x;
+}
+void Enqueue(int y) {
+    struct node *newNode;
+    newNode = (struct node *)malloc(sizeof(struct node));
+    
+    newNode->data = y;
+    newNode->next = NULL;
+    
+    if (F == NULL) {
+        F = R = newNode;
+    } else {
+        R->next = newNode;
+        R = newNode;
+    }
+}
+
+int main() {
+    Enqueue(10);
+    Enqueue(20);
+    Enqueue(30);
+    printf("Dequeued: %d\n", dequeue());
+    printf("Dequeued: %d\n", dequeue());
+    printf("Dequeued: %d\n", dequeue());
+    return 0;
+}
